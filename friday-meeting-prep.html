@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friday Prep — Greg / Rotation 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10151c;
+    --surface: #1a2129;
+    --surface-2: #202834;
+    --line: #2b3542;
+    --text: #eae7df;
+    --text-muted: #8b95a3;
+    --amber: #e0a63e;
+    --teal: #5fa89f;
+    --amber-dim: #6b542a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--text); font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+  .wrap{max-width:860px; margin:0 auto; padding:0 32px;}
+
+  .hero{padding:80px 0 56px; border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--amber); margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:7px; height:7px; border-radius:50%; background:var(--amber); box-shadow:0 0 0 4px var(--amber-dim);}
+  .hero h1{font-size:clamp(30px, 4.5vw, 44px); color:#fff; max-width:700px;}
+  .hero p.sub{margin-top:16px; font-size:16px; color:var(--text-muted); max-width:560px;}
+
+  /* PATHWAY */
+  .pathway{margin-top:56px; position:relative;}
+  .track{position:relative; height:2px; background:var(--line); margin:0 4px;}
+  .track-fill{position:absolute; top:0; left:0; height:100%; background:linear-gradient(90deg, var(--teal), var(--amber)); width:0%; animation: fillTrack 1.4s 0.3s cubic-bezier(.2,.8,.2,1) forwards;}
+  @keyframes fillTrack{ to { width:66%; } }
+  .track-dashed{position:absolute; top:0; right:0; height:100%; width:34%; background-image: repeating-linear-gradient(90deg, var(--amber) 0 6px, transparent 6px 12px); opacity:0; animation: fadeIn 0.6s 1.6s forwards;}
+  @keyframes fadeIn{ to{opacity:0.55;} }
+  .nodes{display:flex; justify-content:space-between; margin-top:-9px; position:relative;}
+  .node{width:33.33%; padding-top:26px; position:relative;}
+  .node:first-child{text-align:left;}
+  .node:last-child{text-align:right;}
+  .node:nth-child(2){text-align:center;}
+  .dot{width:18px; height:18px; border-radius:50%; background:var(--surface); border:2px solid var(--teal); position:absolute; top:-9px; left:0;}
+  .node:nth-child(2) .dot{left:50%; transform:translateX(-50%);}
+  .node:last-child .dot{left:auto; right:0; border-color:var(--amber); background:var(--surface);}
+  .node:last-child .dot::after{content:''; position:absolute; inset:3px; border-radius:50%; background:var(--amber); opacity:0; animation: pulse 2s 2s infinite;}
+  @keyframes pulse{ 0%,100%{opacity:0.9; transform:scale(1);} 50%{opacity:0.3; transform:scale(1.6);} }
+  .node .label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted);}
+  .node .year{font-size:12px; color:var(--text-muted); margin-top:2px;}
+  .node .title{font-family:'Space Grotesk'; font-weight:600; font-size:15.5px; margin-top:6px; color:var(--text);}
+  .node:last-child .title{color:var(--amber);}
+  .node .detail{font-size:13px; color:var(--text-muted); margin-top:4px; max-width:220px;}
+  .node:last-child .detail{margin-left:auto;}
+  .node:nth-child(2) .detail{margin-left:auto; margin-right:auto;}
+
+  .section{padding:56px 0; border-bottom:1px solid var(--line);}
+  .section h2{font-size:13px; text-transform:uppercase; letter-spacing:0.12em; color:var(--teal); font-family:'IBM Plex Mono'; font-weight:500; margin-bottom:22px;}
+
+  .talk-track{
+    background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--amber);
+    border-radius:8px; padding:26px 28px; font-size:16.5px; color:#d7d4cb; font-style:italic;
+  }
+
+  .current-list{list-style:none;}
+  .current-list li{padding:14px 0; border-bottom:1px solid var(--line); font-size:14.5px; color:#c7c4bb; display:flex; gap:12px;}
+  .current-list li:last-child{border-bottom:none;}
+  .current-list li::before{content:'—'; color:var(--teal); flex-shrink:0;}
+
+  .q-list{list-style:none; counter-reset:q;}
+  .q-list li{counter-increment:q; padding:18px 0; border-bottom:1px solid var(--line); display:flex; gap:16px;}
+  .q-list li:last-child{border-bottom:none;}
+  .q-list li::before{
+    content: counter(q, decimal-leading-zero); font-family:'IBM Plex Mono'; font-size:13px; color:var(--amber); flex-shrink:0; padding-top:2px;
+  }
+  .q-list p{font-size:15.5px; color:var(--text);}
+  .q-list .why{font-size:13px; color:var(--text-muted); margin-top:4px;}
+
+  footer{padding:48px 0 72px; text-align:center; color:var(--text-muted); font-family:'IBM Plex Mono'; font-size:12.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">OLDP · Rotation 2 Prep — Meeting with Greg, Friday</div>
+    <h1>Operations discipline. Product instincts.</h1>
+    <p class="sub">Internal notes for Friday — not for sharing. Pulls from the general portfolio, framed for this specific ask.</p>
+
+    <div class="pathway">
+      <div class="track">
+        <div class="track-fill"></div>
+        <div class="track-dashed"></div>
+      </div>
+      <div class="nodes">
+        <div class="node">
+          <div class="dot"></div>
+          <div class="label">Entry</div>
+          <div class="year">Jul 2025</div>
+          <div class="title">OLDP</div>
+          <div class="detail">Joined for the innovation mandate — rebuilding legacy process at scale</div>
+        </div>
+        <div class="node">
+          <div class="dot"></div>
+          <div class="label">Rotation 1</div>
+          <div class="year">Jul 2025 – Present</div>
+          <div class="title">Ops &amp; Governance</div>
+          <div class="detail">IFP dashboards, CSN readiness, process design — Enterprise Business Solutions</div>
+        </div>
+        <div class="node">
+          <div class="dot"></div>
+          <div class="label">Rotation 2</div>
+          <div class="year">Target</div>
+          <div class="title">Product</div>
+          <div class="detail">Where the technical thread and the ops thread meet</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>// Talk track — say this out loud a few times before Friday</h2>
+    <div class="talk-track">
+      "I joined OLDP because Cigna felt like a place where legacy healthcare processes were actually being rebuilt — that's genuinely what energizes me. Going into my MPH, I leaned into that by adding ML and informatics coursework on top of health services. My first rotation put me in governance and performance management, which taught me a lot about how large orgs actually execute — but it pulled me away from the hands-on technical and product work that's my long-term direction. I've kept those skills warm where I could, and I'm at a point where I want a rotation that puts me back in that lane, using both the technical background and the operational fluency I've built."
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>// What Rotation 1 actually built — reframe, don't apologize for it</h2>
+    <ul class="current-list">
+      <li>Own IFP MOR/QOR dashboard build, maintenance, and KPI tracking for executive stakeholders</li>
+      <li>Coordinated a weekly cross-functional readiness forum for Client-Specific Network 1/1 accounts</li>
+      <li>Driving process design for the CSN Issue Resolution workflow, from intake to resolution</li>
+      <li>Learned how priorities actually move through a large enterprise — and where they stall — which most product-track people don't get exposure to this early</li>
+    </ul>
+  </section>
+
+  <section class="section" style="border-bottom:none;">
+    <h2>// Questions for Greg</h2>
+    <ul class="q-list">
+      <li>
+        <div>
+          <p>What does the PM org's relationship with Operations actually look like day to day — where's the friction, and where does it work well?</p>
+          <div class="why">Shows you're thinking about the seam between your two rotations, not just escaping one for the other.</div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <p>What makes someone coming from an operations background credible to your team, versus just enthusiastic?</p>
+          <div class="why">Direct, a little vulnerable, invites him to coach you rather than evaluate you.</div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <p>Within the PM rotation, is there a track that leans more toward hands-on building versus strategy and roadmap work?</p>
+          <div class="why">Signals you want to get technical again without saying "I miss coding" outright.</div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <p>What's something your team shipped recently that you're proud of?</p>
+          <div class="why">Easy, human question — gets him talking, gives you real material to reference later.</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <footer>Rhea Alex · Rotation 2 prep · not for external distribution</footer>
+
+</div>
+</body>
+</html>
